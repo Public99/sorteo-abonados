@@ -11,7 +11,7 @@
 *{box-sizing:border-box}
 body{margin:0;min-height:100vh;display:grid;place-items:center;padding:20px;background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
 main{width:100%;max-width:520px;background:var(--card);border:1px solid var(--bd);border-radius:20px;padding:28px;box-shadow:0 8px 30px rgba(0,0,184,.10);border-top:5px solid var(--rd)}
-.logo{display:block;width:96px;height:96px;margin:0 auto 14px;border-radius:16px}
+.logo{display:block;width:132px;height:132px;margin:0 auto 14px;border-radius:16px}
 h1,p.sub{text-align:center}
 h1{font-size:1.5rem;margin:0 0 4px;font-weight:700}
 p.sub{margin:0 0 24px;color:var(--mu);font-size:.95rem}
@@ -21,7 +21,7 @@ p.sub{margin:0 0 24px;color:var(--mu);font-size:.95rem}
 .lbl{display:block;margin:22px 0 10px;font-size:.85rem;color:var(--mu);font-weight:600;text-transform:uppercase;letter-spacing:.05em}
 .txt{width:100%;padding:13px 14px;border:1px solid var(--bd);border-radius:12px;background:transparent;color:var(--tx);font-size:1rem;font-family:inherit}
 .txt:focus{outline:2px solid var(--ac);border-color:transparent}
-.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.seg{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
 .seg button{padding:12px;border:1px solid var(--bd);background:transparent;color:var(--tx);border-radius:12px;font-size:1.1rem;font-weight:600;cursor:pointer}
 .seg button.on{background:var(--ac);border-color:var(--ac);color:#fff}
 .go{width:100%;margin-top:24px;padding:15px;border:0;border-radius:12px;background:var(--ac);color:#fff;font-size:1.05rem;font-weight:700;cursor:pointer}
@@ -45,6 +45,7 @@ p.sub{margin:0 0 24px;color:var(--mu);font-size:.95rem}
 .w.done{animation:pop .45s}
 @keyframes pop{50%{transform:scale(1.04)}}
 .go:disabled,.link:disabled{opacity:.4;cursor:not-allowed}
+.foot{margin:30px 0 0;text-align:center;font-size:.62rem;color:var(--mu);opacity:.35;letter-spacing:.02em}
 .link{background:none;border:0;color:var(--ac);font-size:.95rem;font-weight:600;cursor:pointer;margin-top:20px;padding:0}
 </style>
 </head>
@@ -72,6 +73,7 @@ p.sub{margin:0 0 24px;color:var(--mu);font-size:.95rem}
   <button class="go" id="again">Sortear de nuevo</button>
   <button class="link" id="back">← Cargar otro archivo</button>
 </section>
+<p class="foot">© 2026 Leonel Cardoza for Tvcable com. All rights reserved.</p>
 </main>
 <script>
 const $=id=>document.getElementById(id);
@@ -79,7 +81,7 @@ let pool=[],qty=1;
 const norm=s=>String(s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]/gi,"").toLowerCase();
 const clean=s=>String(s==null?"":s).trim().replace(/\s+/g," ").toLocaleUpperCase("es");
 const rnd=n=>{const a=new Uint32Array(1),lim=Math.floor(4294967296/n)*n;do crypto.getRandomValues(a);while(a[0]>=lim);return a[0]%n};
-[1,2,3].forEach(n=>{const b=document.createElement("button");b.textContent=n;b.className=n===1?"on":"";b.onclick=()=>{qty=n;[...$("seg").children].forEach(c=>c.classList.toggle("on",c===b))};$("seg").appendChild(b)});
+[1,2].forEach(n=>{const b=document.createElement("button");b.textContent=n;b.className=n===1?"on":"";b.onclick=()=>{qty=n;[...$("seg").children].forEach(c=>c.classList.toggle("on",c===b))};$("seg").appendChild(b)});
 function say(t,e){$("msg").textContent=t;$("msg").className="msg"+(e?" err":"")}
 $("file").onchange=async e=>{
   const f=e.target.files[0];if(!f)return;pool=[];$("go").disabled=true;
